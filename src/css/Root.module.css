@@ -1,0 +1,8 @@
+.scrollable{
+    height: 100vh;
+    overflow: auto;
+    margin:auto;
+    /* display: flex; */
+    align-content: center;
+    /* width:100% */
+}
