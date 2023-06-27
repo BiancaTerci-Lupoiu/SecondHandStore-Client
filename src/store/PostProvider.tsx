@@ -259,7 +259,7 @@ const PostProvider: React.FC<{ children: React.ReactNode }> = ({
     dispatchPostAction({ type: DELETE_POST_STARTED });
     try {
       const tokenLS = getAuthToken();
-      let deletedPost = await deletePost(postId, tokenLS);
+      const deletedPost = await deletePost(postId, tokenLS);
 
       console.log(deletePost);
       dispatchPostAction({ type: DELETE_POST_SUCCEEDED, payload: { postId } });

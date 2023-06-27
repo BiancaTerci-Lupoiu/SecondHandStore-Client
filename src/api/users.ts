@@ -24,7 +24,7 @@ const uploadUserPicture: (
   userId: string,
   token: string
 ) => Promise<string> = async (picture, userId, token) => {
-  let data = new FormData();
+  const data = new FormData();
   data.append("picture", picture, picture.name);
   return withLogs(
     axios.post(`${url}/upload/${userId}`, data, uploadPictureConfig(token)),

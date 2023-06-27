@@ -24,7 +24,7 @@ const uploadPostPicture: (
   postId: string,
   token: string
 ) => Promise<Post> = async (picture, postId, token) => {
-  let data = new FormData();
+  const data = new FormData();
   data.append("picture", picture, picture.name);
   return withLogs(
     axios.post(`${url}/upload/${postId}`, data, uploadPictureConfig(token)),
@@ -33,7 +33,7 @@ const uploadPostPicture: (
 };
 
 const filterByPicture: (picture: File) => Promise<Post[]> = async (picture) => {
-  let data = new FormData();
+  const data = new FormData();
   data.append("picture", picture, picture.name);
   console.log(data);
   return withLogs(

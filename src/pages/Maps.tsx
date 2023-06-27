@@ -23,7 +23,7 @@ import {
   groupPostsByCoordinates,
 } from "../utils/maps";
 
-let DefaultIcon = L.icon({
+const DefaultIcon = L.icon({
   iconUrl: icon,
   shadowUrl: iconShadow,
 });
