@@ -12,7 +12,7 @@ import {
 import marker from "../../assets/location1.svg";
 import AddPostContext from "../../store/add-post-context";
 
-var customIcon = new L.Icon({
+const customIcon = new L.Icon({
   iconUrl:
     //"https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png",
     marker,

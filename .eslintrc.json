@@ -18,7 +18,9 @@
       "react-hooks/exhaustive-deps": "off",
       "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
-      "@typescript-eslint/prefer-as-const": "off"
+      "@typescript-eslint/prefer-as-const": "off",
+      "no-case-declarations": "off",
+      "@typescript-eslint/no-non-null-asserted-optional-chain": "off"
     },
     
     "settings": {
