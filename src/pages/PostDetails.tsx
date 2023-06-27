@@ -17,11 +17,11 @@ import { Box } from "@mui/system";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { domain } from "../utils/apiCallsHandler";
-import UserInfo from "../components/UserInfo";
-import { createCheckoutSession } from "../network/purchases";
+import UserInfo from "../components/userProfile/UserInfo";
+import { createCheckoutSession } from "../api/purchases";
 import { getAuthToken } from "../utils/auth";
 import { StripeCheckoutResponse } from "../interfaces/Payment";
-import { getPostById } from "../network/posts";
+import { getPostById } from "../api/posts";
 
 const PostDetails: React.FC = () => {
   const params = useParams();
@@ -65,9 +65,12 @@ const PostDetails: React.FC = () => {
         <Card
           sx={{
             width: "80%",
+
             marginTop: "30px",
             border: `2px solid ${theme.palette.primary.main}`,
-            boxShadow: `10px 10px ${theme.palette.primary.main}`,
+            boxShadow: `10px 5px  ${theme.palette.primary.main}`,
+            marginBottom: "5px",
+            // boxShadow: `0 4px 6px rgba(0, 0, 0, 0.1), 4px 0 6px rgba(0, 0, 0, 0.1)`,
           }}
         >
           <Grid container spacing={2}>

@@ -10,7 +10,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import { drawerWidth } from "../utils/constants";
+import { drawerWidth } from "../../utils/constants";
 import { DrawerHeader } from "./DrawerHeader";
 import { useTheme } from "@mui/material/styles";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -18,11 +18,13 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 import SellIcon from "@mui/icons-material/Sell";
 import { useNavigate } from "react-router";
 import { useContext } from "react";
-import AuthContext from "../store/auth-context";
-import { getAuthToken } from "../utils/auth";
+import AuthContext from "../../store/auth-context";
+import { getAuthToken } from "../../utils/auth";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import MapIcon from "@mui/icons-material/Map";
+import InfoIcon from "@mui/icons-material/Info";
 
 const MenuDrawer: React.FC<{
   open: boolean;
@@ -62,6 +64,14 @@ const MenuDrawer: React.FC<{
       {/* <Divider /> */}
       <List>
         <ListItem disablePadding>
+          <ListItemButton href="/">
+            <ListItemIcon>
+              <InfoIcon />
+            </ListItemIcon>
+            <ListItemText primary={"About us"} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
           <ListItemButton href="/main">
             <ListItemIcon>
               <LocalMallIcon />
@@ -75,6 +85,14 @@ const MenuDrawer: React.FC<{
               <SellIcon />
             </ListItemIcon>
             <ListItemText primary={"Sell items"} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton href="/map">
+            <ListItemIcon>
+              <MapIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Discover"} />
           </ListItemButton>
         </ListItem>
       </List>

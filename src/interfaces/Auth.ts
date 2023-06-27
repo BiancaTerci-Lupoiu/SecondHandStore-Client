@@ -12,4 +12,5 @@ export interface SignUpInfo {
   password: string;
   phoneNumber: string;
   address?: Address;
+  iban?: string;
 }

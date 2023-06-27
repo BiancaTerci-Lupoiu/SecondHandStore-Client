@@ -1,5 +1,5 @@
 import { Avatar, CardHeader, Divider, Paper, Typography } from "@mui/material";
-import User, { UserWithoutSensitiveInfo } from "../interfaces/User";
+import User, { UserWithoutSensitiveInfo } from "../../interfaces/User";
 
 const UserInfo: React.FC<{ user: UserWithoutSensitiveInfo }> = ({ user }) => {
   return (

@@ -1,41 +1,47 @@
-import ItemCard from "../components/ItemCard";
-import { post } from "../mocks/mockedPost";
+import ItemCard from "../components/posts/ItemCard";
 import { useState, useEffect, useContext } from "react";
-import { Post } from "../interfaces/Post";
 import PostContext from "../store/manipulate-posts-context";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  InputLabel,
-  MenuItem,
-  TextField,
-  useTheme,
-} from "@mui/material";
+import { Box, Button, Container, Divider, Grid } from "@mui/material";
+import FiltersBar from "../components/filters/FiltersBar";
+import LoadingComponent from "../components/LoadingComponent";
 const MainPage = () => {
   const { posts, fetching, getAllPosts } = useContext(PostContext);
+
+  const [openLoadingModal, setOpenLoadingModal] = useState(false);
 
   useEffect(() => {
     getAllPosts?.();
   }, []);
 
+  useEffect(() => {
+    if (fetching) {
+      setOpenLoadingModal(true);
+    } else {
+      setOpenLoadingModal(false);
+    }
+  }, [fetching]);
+
   return (
-    <Grid
-      container
-      spacing={2}
-      style={{
-        paddingTop: 30,
-        paddingBottom: 10,
-        paddingLeft: 50,
-      }}
-    >
-      {posts.map((post) => (
-        <Grid key={post._id} item xs={4} md={4}>
-          <ItemCard post={post} />
-        </Grid>
-      ))}
-    </Grid>
+    <>
+      <FiltersBar />
+      <Box
+        sx={{
+          marginTop: "50px",
+          marginBottom: "50px",
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          gap: "60px",
+        }}
+      >
+        {posts.map((post) => (
+          <Grid key={post._id} item xs={4} md={4}>
+            <ItemCard post={post} />
+          </Grid>
+        ))}
+      </Box>
+      <LoadingComponent open={openLoadingModal} setOpen={setOpenLoadingModal} />
+    </>
   );
 };
 

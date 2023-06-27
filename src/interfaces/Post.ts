@@ -6,6 +6,11 @@ export interface Category {
   thirdType: string;
 }
 
+export interface Coordinates {
+  latitude: number;
+  longitude: number;
+}
+
 export interface Post {
   _id: string;
   user: UserWithoutSensitiveInfo;
@@ -21,15 +26,22 @@ export interface Post {
   color: string;
   picture?: string;
   category: Category;
+  coordinates: Coordinates;
+  percentage?: number;
 }
 
-export type AddPostDetails = Omit<Post, "_id" | "user" | "picture"> & {
+export type AddPostDetails = Omit<
+  Post,
+  "_id" | "user" | "picture" | "coordinates"
+> & {
   picture: File;
+  coordinates?: Coordinates;
 };
 
 export interface AddPostBody {
   postDetails: AddPostDetails | null;
   address: Address | null;
+  iban: string;
 }
 
 export enum Genders {
@@ -39,10 +51,25 @@ export enum Genders {
 }
 
 export enum Condition {
-  GOOD = "STARE BUNA",
-  EXCELLENT = "STARE EXCELENTA",
+  GOOD = "STARE BUNĂ",
+  EXCELLENT = "STARE EXCELENTĂ",
   SATISFYING = "STARE SATISFACATOARE",
   UNWORN = "NEPURTAT",
-  NEW = "NOUA",
+  NEW = "NOUĂ",
   DEFAULT = "",
+}
+
+export interface UpdatePostBody {
+  title?: string;
+  description?: string;
+  gender?: Genders;
+  size?: string;
+  condition?: Condition;
+  style?: string;
+  materials?: string[];
+  price?: number;
+  brand?: string;
+  color?: string;
+  category?: Category;
+  picture?: File;
 }

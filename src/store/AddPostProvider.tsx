@@ -1,12 +1,15 @@
 import { useContext, useReducer } from "react";
 import { AddPostBody, AddPostDetails } from "../interfaces/Post";
 import { Address } from "../interfaces/User";
-import { addPost, uploadPostPicture } from "../network/posts";
+import { addPost, uploadPostPicture } from "../api/posts";
+import { getAuthToken } from "../utils/auth";
 import AddPostContext, {
   AddPostState,
   initialAddPostState,
 } from "./add-post-context";
 import AuthContext from "./auth-context";
+import { enqueueSnackbar } from "notistack";
+import { Typography } from "@mui/material";
 
 interface ActionProps {
   type: string;
@@ -42,9 +45,6 @@ const UPDATE_IBAN = "UPDATE_IBAN";
 const SAVE_POST_STARTED = "SAVE_POST_STARTED";
 const SAVE_POST_SUCCEEDED = "SAVE_POST_SUCCEEDED";
 const SAVE_POST_FAILED = "SAVE_POST_FAILED";
-const FETCH_POSTS_STARTED = "SAVE_POST_STARTED";
-const FETCH_POSTS_SUCCEEDED = "SAVE_POST_SUCCEEDED";
-const FETCH_POSTS_FAILED = "SAVE_POST_FAILED";
 
 const AddPostProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -71,17 +71,22 @@ const AddPostProvider: React.FC<{ children: React.ReactNode }> = ({
     dispatchAddPostAction({ type: UPDATE_IBAN, payload: { iban } });
   };
 
-  const savePost = async () => {
+  const savePost = async (
+    postDetails: AddPostDetails,
+    address: Address,
+    iban: string
+  ) => {
     dispatchAddPostAction({ type: SAVE_POST_STARTED });
     try {
       // console.log(addPostState.postDetails);
-      const tokenLS = localStorage.getItem("token");
+      const tokenLS = getAuthToken();
       const savedPost = await addPost(
         {
-          postDetails: addPostState.postDetails,
-          address: addPostState.address,
+          postDetails: postDetails,
+          address: address,
+          iban,
         },
-        tokenLS ? tokenLS : token
+        tokenLS
       );
       dispatchAddPostAction({ type: SAVE_POST_SUCCEEDED });
       console.log("SAVED POST WITH ID " + savedPost._id);
@@ -89,7 +94,7 @@ const AddPostProvider: React.FC<{ children: React.ReactNode }> = ({
       const response = await uploadPostPicture(
         addPostState.postDetails?.picture!,
         savedPost._id,
-        tokenLS ? tokenLS : token
+        tokenLS
       );
     } catch (error: any) {
       console.log("Error");
@@ -98,6 +103,15 @@ const AddPostProvider: React.FC<{ children: React.ReactNode }> = ({
         type: SAVE_POST_FAILED,
         payload: { error: error.response.data.message },
       });
+      const messages: string[] = error.response.data.message.split(";");
+      enqueueSnackbar(
+        <div>
+          {messages.map((message) => (
+            <Typography key={message}>{message}</Typography>
+          ))}
+        </div>,
+        { autoHideDuration: 10000 }
+      );
     }
   };
 

@@ -13,33 +13,36 @@ import {
   Typography,
 } from "@mui/material";
 import "../css/UserProfile.css";
-import { Textarea } from "@mui/joy";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useTheme } from "@mui/material";
 import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useNavigate } from "react-router-dom";
-import { getUserDetails, uploadUserPicture } from "../network/users";
+import { getUserDetails, uploadUserPicture } from "../api/users";
 import { getAuthToken } from "../utils/auth";
 import User, { UserWithoutSensitiveInfo } from "../interfaces/User";
 import AuthContext from "../store/auth-context";
 import { domain } from "../utils/apiCallsHandler";
 import PostContext from "../store/manipulate-posts-context";
-import MyPostsList from "../components/MyPostsList";
-import EditProfileModal from "../components/EditProfileModal";
+import MyPostsList from "../components/userProfile/MyPostsList";
+import EditProfileModal from "../components/userProfile/EditProfileModal";
 
 const UserProfile = () => {
   const theme = useTheme();
 
   const { token, getDetailsForUser, loggedUser } = useContext(AuthContext);
 
-  const [openEditModal, setOpenEditModal] = useState<boolean>(false);
+  const [openEditProfileModal, setOpenEditProfileModal] =
+    useState<boolean>(false);
 
   const [disabled, setDisabled] = useState<boolean>(true);
   const [hideButton, setHideButton] = useState<boolean>(true);
   const [openSnackBar, setOpenSnackBar] = useState<boolean>(false);
   const [snackBarMessage, setSnackBarMessage] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState(
+    loggedUser ? `${domain}/images/users/${loggedUser.picture}` : ""
+  );
 
   const hiddenFileInput = React.useRef<HTMLInputElement>(null);
 
@@ -57,38 +60,11 @@ const UserProfile = () => {
       })();
   }, [token, tokenLS]);
 
-  //   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-  //     event.preventDefault();
-  //     setDisabled(true);
-  //     setHideButton(true);
-  //     if (loggedUser) {
-  //       updateUser({
-  //         ...loggedUser,
-  //         biography: biography,
-  //         firstName,
-  //         lastName,
-  //         phoneNumber,
-  //       })
-  //         .then(() => {
-  //           console.log("Update user");
-  //           getUserByEmail(loggedUserEmail)
-  //             .then((user: UserInterface) => {
-  //               console.log("after update ", user);
-  //               setLoggedUser(user);
-  //               setSnackBarMessage("Info updated successfully!");
-  //               setOpenSnackBar(true);
-  //             })
-  //             .catch((error) => {
-  //               console.log("the user does not exist");
-  //             });
-  //         })
-  //         .catch((error) => {
-  //           console.log(error.response.data, " could not make the update");
-  //           setSnackBarMessage("Sorry, something went wrong! :(");
-  //           setOpenSnackBar(true);
-  //         });
-  //     }
-  //   }
+  useEffect(() => {
+    if (loggedUser) {
+      setImageUrl(`${domain}/images/users/${loggedUser.picture}`);
+    }
+  }, [loggedUser]);
 
   function handleCloseSnackBar(
     event: React.SyntheticEvent | Event,
@@ -124,6 +100,12 @@ const UserProfile = () => {
       uploadUserPicture(fileUploaded, loggedUser!._id, tokenLS || token)
         .then((res) => {
           console.log(res);
+          const timestamp = Date.now();
+          setImageUrl(
+            `${domain}/images/users/${
+              loggedUser!.picture
+            }?timestamp=${timestamp}`
+          );
           (async () => {
             await getDetailsForUser?.();
           })();
@@ -139,7 +121,7 @@ const UserProfile = () => {
 
   return (
     <>
-      <Grid container component="main" sx={{ height: "90vh" }}>
+      <Grid container component="main">
         <div className="MainProfileDiv">
           <div className="profile-container">
             <div className="top-portion">
@@ -161,7 +143,7 @@ const UserProfile = () => {
                     boxShadow: "1px 1px 12px 3px rgba(0,0,0,.8)",
                   }}
                   alt="Remy Sharp"
-                  src={`${domain}/images/users/${loggedUser.picture}`}
+                  src={imageUrl}
                   className="avatar"
                   onClick={(event: any) => {
                     if (hiddenFileInput && hiddenFileInput.current) {
@@ -271,6 +253,28 @@ const UserProfile = () => {
                           </span>
                         </Typography>
                       </div>
+                      {loggedUser.address && (
+                        <Divider
+                          variant="middle"
+                          sx={{
+                            marginTop: "7px",
+                            marginBottom: "7px",
+                            bgcolor: theme.palette.primary.contrastText,
+                          }}
+                        />
+                      )}
+                      {loggedUser.address && (
+                        <div style={{ display: "flex" }}>
+                          <Typography variant="h6">
+                            Adresa:
+                            <span
+                              style={{ fontSize: "15px", fontStyle: "italic" }}
+                            >
+                              {` ${loggedUser.address.locality}, ${loggedUser.address.city}`}
+                            </span>
+                          </Typography>
+                        </div>
+                      )}
                     </Paper>
                     <Button
                       variant="contained"
@@ -279,7 +283,7 @@ const UserProfile = () => {
                         bgcolor: theme.palette.secondary.main,
                         fontSize: "14px",
                       }}
-                      onClick={() => setOpenEditModal(true)}
+                      onClick={() => setOpenEditProfileModal(true)}
                     >
                       Edit profile
                     </Button>
@@ -318,7 +322,13 @@ const UserProfile = () => {
           </div>
         </div>
       </Grid>
-      <EditProfileModal open={openEditModal} setOpen={setOpenEditModal} />
+      {loggedUser && (
+        <EditProfileModal
+          user={loggedUser}
+          open={openEditProfileModal}
+          setOpen={setOpenEditProfileModal}
+        />
+      )}
     </>
   );
 };

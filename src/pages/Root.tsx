@@ -1,16 +1,15 @@
 import { Outlet } from "react-router-dom";
-import MainNavigation from "../components/MainNavigation";
+import MainNavigation from "../components/menuBar/MainNavigation";
 import classes from "../css/Root.module.css";
 
 import * as React from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import MenuDrawer from "../components/MenuDrawer";
-import { DrawerHeader } from "../components/DrawerHeader";
-import { Main } from "../components/Main";
+import MenuDrawer from "../components/menuBar/MenuDrawer";
+import { DrawerHeader } from "../components/menuBar/DrawerHeader";
+import { Main } from "../components/menuBar/Main";
 
 const RootLayout: React.FC = () => {
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {

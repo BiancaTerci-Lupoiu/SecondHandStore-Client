@@ -7,8 +7,12 @@ export type AddPostState = {
   address: Address | null;
   iban: string;
   saving: boolean;
-  savingError: Error | null;
-  savePost?: () => void;
+  savingError: string | null;
+  savePost?: (
+    postDetails: AddPostDetails,
+    address: Address,
+    iban: string
+  ) => void;
   updatePostDetails?: (postDetails: AddPostDetails) => void;
   updateAddress?: (address: Address) => void;
   updateIban?: (iban: string) => void;

@@ -24,3 +24,12 @@ export interface Address {
   zipCode: number;
   coordinates?: { latitude: number; longitude: number };
 }
+
+export interface UpdateUserBody {
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  address?: Address;
+  iban?: string;
+  picture?: string;
+}

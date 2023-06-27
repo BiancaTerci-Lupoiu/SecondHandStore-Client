@@ -11,9 +11,9 @@ import {
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
-import AddPostContext from "../store/add-post-context";
-
-type CityFetchedType = { auto: string; nume: string };
+import { CityFetchedType } from "../../interfaces/City";
+import AddPostContext from "../../store/add-post-context";
+import SelectMapLocation from "../maps/SelectMapLocation";
 
 const AddressForm: React.FC<{
   handleNext: () => void;
@@ -21,7 +21,7 @@ const AddressForm: React.FC<{
 }> = ({ handleNext, handleBack }) => {
   const theme = useTheme();
 
-  const { address, updateAddress, iban, updateIban, savePost } =
+  const { address, updateAddress, iban, updateIban, savePost, postDetails } =
     useContext(AddPostContext);
 
   const [locality, setLocality] = useState<string>("");
@@ -118,7 +118,7 @@ const AddressForm: React.FC<{
     return isValid;
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const isInputValid = validateInput();
     //const isInputValid = true;
     if (!isInputValid) {
@@ -127,7 +127,17 @@ const AddressForm: React.FC<{
     updateAddress?.({ locality, city: selectedCity, street, number, zipCode });
 
     // add post logic
-    savePost?.();
+    savePost?.(
+      postDetails!,
+      {
+        locality,
+        city: selectedCity,
+        street,
+        number,
+        zipCode,
+      },
+      iban
+    );
 
     handleNext();
   };
@@ -226,6 +236,17 @@ const AddressForm: React.FC<{
               helperText={zipcodeErrorText}
             />
           </Grid>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <SelectMapLocation />
+          </Grid>
           {/* iban info */}
           <Typography
             component="h1"
@@ -233,7 +254,7 @@ const AddressForm: React.FC<{
             align="center"
             sx={{ marginTop: "20px", marginBottom: "20px" }}
           >
-            Payment details:
+            IBAN:
           </Typography>
           <Grid item xs={12}>
             {/* <InputLabel>IBAN:</InputLabel> */}

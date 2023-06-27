@@ -7,6 +7,7 @@ import {
   TextField,
   Typography,
   MenuItem,
+  Autocomplete,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useContext, useEffect, useState } from "react";
@@ -14,23 +15,29 @@ import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import {
   brands,
   categories,
+  colors,
   conditions,
   genders,
   materials,
+  sizes,
   styles,
-} from "../utils/addPostForm";
+} from "../../utils/addPostForm";
 
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import AddPostContext from "../store/add-post-context";
-import { AddPostDetails, Condition, Genders } from "../interfaces/Post";
-import { uploadPostPicture } from "../network/posts";
+import AddPostContext from "../../store/add-post-context";
+import { AddPostDetails, Condition, Genders } from "../../interfaces/Post";
+import {
+  convertStringToCondition,
+  convertStringToGender,
+} from "../../utils/enumConvertions";
 
 const AddPostForm: React.FC<{
   handleNext: () => void;
 }> = ({ handleNext }) => {
   const { updatePostDetails, postDetails } = useContext(AddPostContext);
 
-  //console.log("condition " + postDetails?.condition);
+  //console.log("condition " + postDetails?.category.thirdType);
+  console.log(postDetails);
   const [title, setTitle] = useState<string>(
     postDetails && postDetails.title ? postDetails.title : ""
   );
@@ -65,7 +72,9 @@ const AddPostForm: React.FC<{
     postDetails && postDetails.color ? postDetails.color : ""
   );
   // picture upload logic
-  const [picture, setPicture] = useState<File>();
+  const [picture, setPicture] = useState<File | null>(
+    postDetails && postDetails.picture ? postDetails.picture : null
+  );
   const [category1, setCategory1] = useState<string>(
     postDetails && postDetails.category.type ? postDetails.category.type : ""
   );
@@ -106,6 +115,8 @@ const AddPostForm: React.FC<{
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       setCategory2Values(categories.category1[category1].category2);
+      console.log("HEREEE");
+      if (postDetails?.category.type !== category1) setCategory3("");
     }
   }, [category1]);
 
@@ -176,7 +187,7 @@ const AddPostForm: React.FC<{
     } else {
       setStyleErrorText("");
     }
-    if (!materials || materials.length === 0) {
+    if (!material || material.length === 0) {
       setMaterialErrorText("Materials required");
       isValid = false;
     } else {
@@ -190,7 +201,7 @@ const AddPostForm: React.FC<{
         setPriceErrorText("Invalid price");
         isValid = false;
       } else {
-        setSizeErrorText("");
+        setPriceErrorText("");
       }
     }
     if (!brand) {
@@ -239,10 +250,6 @@ const AddPostForm: React.FC<{
     //const isInputValid = true;
 
     if (isInputValid) {
-      console.log(condition);
-      console.log(
-        "transform cond " + Condition[condition as keyof typeof Condition]
-      );
       if (picture) {
         updatePostDetails?.({
           title,
@@ -251,9 +258,9 @@ const AddPostForm: React.FC<{
           price,
           brand,
           color,
-          gender: Genders[gender as keyof typeof Genders],
+          gender: convertStringToGender(gender),
           size,
-          condition: Condition[condition as keyof typeof Condition],
+          condition: convertStringToCondition(condition),
           style,
           category: {
             type: category1,
@@ -268,7 +275,7 @@ const AddPostForm: React.FC<{
   };
 
   return (
-    <Container id="aaaa" component="div" maxWidth="sm">
+    <Container component="div" maxWidth="sm" sx={{ height: "auto" }}>
       <Box
         sx={{
           marginTop: 6,
@@ -325,18 +332,30 @@ const AddPostForm: React.FC<{
                 ))}
               </TextField>
             </Grid>
+
             <Grid item xs={12} sm={2}>
-              <TextField
-                required
-                fullWidth
-                id="size"
-                label="Mărime"
-                name="size"
-                autoComplete="size"
-                value={size}
-                onChange={(event) => setSize(event.target.value)}
-                error={!!sizeErrorText}
-                helperText={sizeErrorText}
+              <Autocomplete
+                freeSolo
+                options={sizes}
+                inputValue={size}
+                onChange={(event, value) => {
+                  setSize(value!);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    required
+                    fullWidth
+                    id="size"
+                    label="Mărime"
+                    name="size"
+                    autoComplete="size"
+                    value={size}
+                    error={!!sizeErrorText}
+                    helperText={sizeErrorText}
+                    onChange={(event) => setSize(event.target.value)}
+                  />
+                )}
               />
             </Grid>
 
@@ -445,17 +464,27 @@ const AddPostForm: React.FC<{
               />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <TextField
-                required
-                fullWidth
-                id="color"
-                label="Culoare"
-                name="color"
-                autoComplete="color"
-                value={color}
-                onChange={(event) => setColor(event.target.value)}
-                error={!!colorErrorText}
-                helperText={colorErrorText}
+              <Autocomplete
+                freeSolo
+                options={colors}
+                inputValue={color}
+                onChange={(event, value) => {
+                  setColor(value!);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    required
+                    fullWidth
+                    id="color"
+                    label="Culoare"
+                    name="color"
+                    autoComplete="color"
+                    onChange={(event) => setColor(event.target.value)}
+                    error={!!colorErrorText}
+                    helperText={colorErrorText}
+                  />
+                )}
               />
             </Grid>
             <Grid item xs={12} sm={4}>
@@ -591,33 +620,6 @@ const AddPostForm: React.FC<{
           >
             Next
           </Button>
-          {/* <Grid container justifyContent="flex-end">
-            <Grid item>
-              <NavLink to="/login">Already have an account? Log in</NavLink>
-            </Grid>
-          </Grid> */}
-          {/* <Snackbar
-            open={openSnackBar}
-            autoHideDuration={6000}
-            onClose={handleCloseSnackBar}
-            message={snackBarMessage}
-            action={action}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "center",
-            }}
-          />
-          <Snackbar
-            open={openSnackBarSignUpSuccessful}
-            autoHideDuration={6000}
-            onClose={handleCloseSnackBarOnSignUpSuccessful}
-            message={snackBarMessage}
-            action={actionIfSignUpSuccessful}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "center",
-            }}
-          /> */}
         </Box>
       </Box>
     </Container>

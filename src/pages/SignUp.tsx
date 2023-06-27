@@ -22,7 +22,9 @@ import { useEffect } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import axios from "axios";
 import Switch from "@mui/material/Switch";
-import { signUp } from "../network/auth";
+import { signUp } from "../api/auth";
+import { CityFetchedType } from "../interfaces/City";
+import { closeSnackbar, enqueueSnackbar } from "notistack";
 
 function Copyright(props: any) {
   return (
@@ -41,8 +43,6 @@ function Copyright(props: any) {
     </Typography>
   );
 }
-
-type CityFetchedType = { auto: string; nume: string };
 
 const SignUp: React.FC = () => {
   const [phone, setPhone] = useState<string>("");
@@ -66,6 +66,7 @@ const SignUp: React.FC = () => {
   const [numberErrorText, setNumberErrorText] = useState("");
   const [streetErrorText, setStreetErrorText] = useState("");
   const [zipcodeErrorText, setZipcodeErrorText] = useState("");
+  const [iban, setIban] = useState("");
 
   const [openSnackBar, setOpenSnackBar] = useState<boolean>(false);
   const [openSnackBarSignUpSuccessful, setOpenSnackBarSignUpSuccessful] =
@@ -200,6 +201,7 @@ const SignUp: React.FC = () => {
     const address = hasAddress
       ? { locality, city: selectedCity, street, number, zipCode }
       : undefined;
+
     signUp({
       firstName,
       lastName,
@@ -207,16 +209,37 @@ const SignUp: React.FC = () => {
       password,
       phoneNumber: phone,
       address,
+      iban: iban ? iban : undefined,
     })
       .then((response) => {
         console.log(response);
-        setSnackBarMessage("Sign Up successful! Please check your email!");
-        setOpenSnackBarSignUpSuccessful(true);
+        enqueueSnackbar("Sign Up successful! Please check your email!", {
+          action: (snackbarId) => (
+            <IconButton
+              sx={{ color: "white" }}
+              onClick={() => {
+                closeSnackbar(snackbarId);
+                navigate("/login");
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          ),
+        });
+        //setOpenSnackBarSignUpSuccessful(true);
       })
       .catch((error) => {
         console.log("Error", error.response.data);
-        setSnackBarMessage(error.response.data.message);
-        setOpenSnackBar(true);
+        const messages: string[] = error.response.data.message.split(";");
+        enqueueSnackbar(
+          <div>
+            {messages.map((message) => (
+              <Typography key={message}>{message}</Typography>
+            ))}
+          </div>
+        );
+        // setSnackBarMessage(error.response.data.message);
+        // setOpenSnackBar(true);
       });
   }
 
@@ -392,7 +415,7 @@ const SignUp: React.FC = () => {
             </Grid>
             <Snackbar
               open={openSnackBar}
-              autoHideDuration={6000}
+              autoHideDuration={4000}
               onClose={handleCloseSnackBar}
               message={snackBarMessage}
               action={action}
@@ -428,8 +451,8 @@ const SignUp: React.FC = () => {
         >
           <span>
             <Typography component="h5" variant="h5" sx={{ display: "inline" }}>
-              You can add Address information if you want (this will be used
-              when you place an order or when you sell an item):
+              You can add Address and payment information if you want (this will
+              be used when you place an order or when you sell an item):
             </Typography>
             <Switch
               checked={hasAddress}
@@ -525,6 +548,28 @@ const SignUp: React.FC = () => {
                     onChange={(event) => setZipcode(Number(event.target.value))}
                     error={!!zipcodeErrorText}
                     helperText={zipcodeErrorText}
+                  />
+                </Grid>
+                <Typography
+                  component="h1"
+                  variant="h5"
+                  align="center"
+                  sx={{ marginTop: "20px" }}
+                >
+                  IBAN:
+                </Typography>
+                <Grid item xs={12}>
+                  {/* <InputLabel>IBAN:</InputLabel> */}
+                  <TextField
+                    fullWidth
+                    id="iban"
+                    label="IBAN"
+                    name="iban"
+                    autoComplete="iban"
+                    value={iban}
+                    onChange={(event) => setIban(event.target.value)}
+                    //   error={!!streetErrorText}
+                    //   helperText={streetErrorText}
                   />
                 </Grid>
               </Grid>

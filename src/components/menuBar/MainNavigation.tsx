@@ -15,15 +15,15 @@ import { useContext, useEffect, useState } from "react";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material";
-import { getAuthToken } from "../utils/auth";
-import AuthContext from "../store/auth-context";
+import { getAuthToken } from "../../utils/auth";
+import AuthContext from "../../store/auth-context";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import { domain } from "../utils/apiCallsHandler";
+import { domain } from "../../utils/apiCallsHandler";
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import { drawerWidth } from "../utils/constants";
+import { drawerWidth } from "../../utils/constants";
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -72,7 +72,7 @@ const MainNavigation: React.FC<{
       <AppBar
         position="fixed"
         sx={{
-          zIndex: 2,
+          zIndex: 1000,
           bgcolor: theme.palette.primary.main,
           color: "white",
         }}
@@ -91,7 +91,7 @@ const MainNavigation: React.FC<{
             <MenuIcon />
           </IconButton>
           <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
-            SH online
+            SecondLife
           </Typography>
           <IconButton
             size="medium"

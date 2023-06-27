@@ -1,6 +1,6 @@
 import axios from "axios";
 import { LoginResponse, SignUpInfo } from "../interfaces/Auth";
-import { UserWithoutSensitiveInfo } from "../interfaces/User";
+import { UpdateUserBody, UserWithoutSensitiveInfo } from "../interfaces/User";
 import {
   authConfig,
   domain,
@@ -32,4 +32,19 @@ const uploadUserPicture: (
   );
 };
 
-export { getUserDetails, uploadUserPicture };
+const updateUser: (
+  updateUserBody: UpdateUserBody,
+  userId: string,
+  token: string
+) => Promise<UserWithoutSensitiveInfo> = async (
+  updateUserBody,
+  userId,
+  token
+) => {
+  return withLogs(
+    axios.put(`${url}/${userId}`, updateUserBody, authConfig(token)),
+    "updateUser"
+  );
+};
+
+export { getUserDetails, uploadUserPicture, updateUser };

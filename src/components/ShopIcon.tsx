@@ -8,7 +8,7 @@ const ShopIcon = () => {
     <Avatar
       sx={{
         m: 1,
-        bgcolor: theme.palette.secondary.contrastText,
+        bgcolor: theme.palette.primary.contrastText,
         width: 70,
         height: 70,
         border: "2px solid " + theme.palette.secondary.main,

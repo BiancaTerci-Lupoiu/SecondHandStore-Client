@@ -16,6 +16,7 @@ import AuthContext from "../store/auth-context";
 import { useTheme } from "@mui/material";
 import ShopIcon from "../components/ShopIcon";
 import { getAuthToken } from "../utils/auth";
+import logo from "../assets/logo.png";
 
 function Copyright(props: any) {
   return (
@@ -27,7 +28,7 @@ function Copyright(props: any) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        SH Online
+        SecondLife
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -116,7 +117,7 @@ const Login: React.FC = () => {
           sm={4}
           md={7}
           sx={{
-            //backgroundImage: `url(${background})`,
+            backgroundImage: `url(${logo})`,
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"

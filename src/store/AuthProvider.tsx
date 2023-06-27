@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { LoginResponse } from "../interfaces/Auth";
-import { login } from "../network/auth";
+import { login } from "../api/auth";
 import AuthContext, { AuthState, initialAuthState } from "./auth-context";
 import React from "react";
 import { getAuthToken } from "../utils/auth";
-import { getUserDetails } from "../network/users";
+import { getUserDetails } from "../api/users";
+import { tokenValidity } from "../utils/constants";
 
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -17,8 +18,10 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     });
     try {
       const user = await login(email, password);
-
+      const now = new Date();
+      const expireTime = now.getTime() + tokenValidity * 60 * 60 * 1000;
       localStorage.setItem("token", user.token);
+      localStorage.setItem("expires", expireTime.toString());
       console.log("login cu succes");
       setAuthState((prevState: AuthState) => {
         return {
@@ -45,6 +48,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logoutHandler = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("expires");
     setAuthState((prevState: AuthState) => {
       return {
         ...prevState,

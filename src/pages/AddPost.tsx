@@ -12,18 +12,18 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import AddPostForm from "../components/AddPostForm";
-import AddressForm from "../components/AddressForm";
-import AddPostFinishStep from "../components/AddPostFinishStep";
+import AddPostForm from "../components/addPostForm/AddPostForm";
+import AddressForm from "../components/addPostForm/AddressForm";
+import AddPostFinishStep from "../components/addPostForm/AddPostFinishStep";
 import AddPostContext from "../store/add-post-context";
-import { getUserDetails } from "../network/users";
+import { getUserDetails } from "../api/users";
 
 const steps = ["Item details", "Address info", "Finish"];
 
 const AddPost = () => {
   const tokenLS = getAuthToken();
   const { token } = useContext(AuthContext);
-  const { updateAddress } = useContext(AddPostContext);
+  const { updateAddress, updateIban } = useContext(AddPostContext);
 
   const [openSnackBar, setOpenSnackBar] = useState<boolean>(false);
   const [snackBarMessage, setSnackBarMessage] = useState<string>("");
@@ -34,14 +34,16 @@ const AddPost = () => {
     if (!tokenLS && !token) {
       setOpenSnackBar(true);
       setSnackBarMessage("Please, login first!");
-    }
-
-    (async () => {
-      const userDetails = await getUserDetails(tokenLS || token);
-      if (userDetails.address) {
-        updateAddress?.(userDetails.address);
-      }
-    })();
+    } else
+      (async () => {
+        const userDetails = await getUserDetails(tokenLS || token);
+        if (userDetails.address) {
+          updateAddress?.(userDetails.address);
+        }
+        if (userDetails.iban) {
+          updateIban?.(userDetails.iban);
+        }
+      })();
   }, []);
 
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -59,7 +61,7 @@ const AddPost = () => {
       case 1:
         return <AddressForm handleNext={handleNext} handleBack={handleBack} />;
       case 2:
-        return <AddPostFinishStep />;
+        return <AddPostFinishStep handleBack={handleBack} />;
       default:
         throw new Error("Unknown step");
     }
@@ -96,7 +98,7 @@ const AddPost = () => {
 
   return (
     <>
-      <Paper style={{ height: "100vh", overflow: "hidden" }}>
+      <Paper style={{ height: "auto" }}>
         <Typography
           component="h1"
           variant="h4"
@@ -112,36 +114,7 @@ const AddPost = () => {
             </Step>
           ))}
         </Stepper>
-        <React.Fragment>
-          {/* {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
-                </Typography>
-              </React.Fragment>
-            ) :  */}
-
-          <React.Fragment>
-            {getStepContent(activeStep)}
-            {/* <div>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack}>Back</Button>
-                  )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                  >
-                    {activeStep === steps.length - 1 ? "Add item" : "Next"}
-                  </Button>
-                </div> */}
-          </React.Fragment>
-        </React.Fragment>
+        <React.Fragment>{getStepContent(activeStep)}</React.Fragment>
       </Paper>
 
       <Snackbar
