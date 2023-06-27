@@ -1,13 +1,10 @@
-import { Box, Button, Fade, Modal, Typography } from "@mui/material";
-import { modalStyle } from "../../utils/modals";
+import { Box, Fade, Modal } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
-import {
-  BasicModalProps,
-  DeletePostModalProps,
-} from "../../interfaces/ModalProps";
 import { useTheme } from "@mui/material/styles";
 import { useContext } from "react";
+import { BasicModalProps } from "../../interfaces/ModalProps";
 import PostContext from "../../store/manipulate-posts-context";
+import { modalStyle } from "../../utils/modals";
 import PictureUploader from "./PictureUploader";
 
 const FilterPictureModal: React.FC<BasicModalProps> = (props) => {

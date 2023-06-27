@@ -1,5 +1,5 @@
 import React from "react";
-import { AddPostBody, AddPostDetails } from "../interfaces/Post";
+import { AddPostDetails } from "../interfaces/Post";
 import { Address } from "../interfaces/User";
 
 export type AddPostState = {

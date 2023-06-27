@@ -1,32 +1,25 @@
-import { Context, useContext, useEffect, useState } from "react";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   Avatar,
-  Box,
   Button,
   Divider,
   Grid,
-  Icon,
   IconButton,
   Paper,
   Snackbar,
-  TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
-import "../css/UserProfile.css";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
-import { useTheme } from "@mui/material";
-import React from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserDetails, uploadUserPicture } from "../api/users";
-import { getAuthToken } from "../utils/auth";
-import User, { UserWithoutSensitiveInfo } from "../interfaces/User";
+import { uploadUserPicture } from "../api/users";
+import EditProfileModal from "../components/userProfile/EditProfileModal";
+import MyPostsList from "../components/userProfile/MyPostsList";
+import "../css/UserProfile.css";
 import AuthContext from "../store/auth-context";
 import { domain } from "../utils/apiCallsHandler";
-import PostContext from "../store/manipulate-posts-context";
-import MyPostsList from "../components/userProfile/MyPostsList";
-import EditProfileModal from "../components/userProfile/EditProfileModal";
+import { getAuthToken } from "../utils/auth";
 
 const UserProfile = () => {
   const theme = useTheme();

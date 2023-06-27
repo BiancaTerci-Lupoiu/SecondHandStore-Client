@@ -2,12 +2,11 @@ import { Outlet } from "react-router-dom";
 import MainNavigation from "../components/menuBar/MainNavigation";
 import classes from "../css/Root.module.css";
 
-import * as React from "react";
-import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import MenuDrawer from "../components/menuBar/MenuDrawer";
+import * as React from "react";
 import { DrawerHeader } from "../components/menuBar/DrawerHeader";
 import { Main } from "../components/menuBar/Main";
+import MenuDrawer from "../components/menuBar/MenuDrawer";
 
 const RootLayout: React.FC = () => {
   const [open, setOpen] = React.useState(false);

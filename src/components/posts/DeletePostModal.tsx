@@ -1,10 +1,10 @@
 import { Box, Button, Fade, Modal, Typography } from "@mui/material";
-import { modalStyle } from "../../utils/modals";
 import Backdrop from "@mui/material/Backdrop";
-import { DeletePostModalProps } from "../../interfaces/ModalProps";
 import { useTheme } from "@mui/material/styles";
 import { useContext } from "react";
+import { DeletePostModalProps } from "../../interfaces/ModalProps";
 import PostContext from "../../store/manipulate-posts-context";
+import { modalStyle } from "../../utils/modals";
 const DeletePostModal: React.FC<DeletePostModalProps> = (props) => {
   const { setOpen, open, postId } = props;
   const handleClose = () => {

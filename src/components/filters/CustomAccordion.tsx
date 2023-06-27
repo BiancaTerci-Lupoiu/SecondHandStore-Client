@@ -1,12 +1,11 @@
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Typography,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import { useTheme } from "@mui/material/styles";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { styled, useTheme } from "@mui/material/styles";
 
 interface AccordionItemProps {
   title: string;

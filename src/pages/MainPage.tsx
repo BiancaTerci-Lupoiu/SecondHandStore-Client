@@ -1,9 +1,9 @@
-import ItemCard from "../components/posts/ItemCard";
-import { useState, useEffect, useContext } from "react";
-import PostContext from "../store/manipulate-posts-context";
-import { Box, Button, Container, Divider, Grid } from "@mui/material";
-import FiltersBar from "../components/filters/FiltersBar";
+import { Box, Grid } from "@mui/material";
+import { useContext, useEffect, useState } from "react";
 import LoadingComponent from "../components/LoadingComponent";
+import FiltersBar from "../components/filters/FiltersBar";
+import ItemCard from "../components/posts/ItemCard";
+import PostContext from "../store/manipulate-posts-context";
 const MainPage = () => {
   const { posts, fetching, getAllPosts } = useContext(PostContext);
 

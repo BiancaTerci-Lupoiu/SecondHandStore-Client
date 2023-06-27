@@ -1,12 +1,5 @@
-import { useContext, useReducer } from "react";
+import { useReducer } from "react";
 import {
-  AddPostBody,
-  AddPostDetails,
-  UpdatePostBody,
-} from "../interfaces/Post";
-import { Address } from "../interfaces/User";
-import {
-  addPost,
   deletePost,
   filterByPicture,
   getPosts,
@@ -15,16 +8,16 @@ import {
   updatePost,
   uploadPostPicture,
 } from "../api/posts";
+import { UpdatePostBody } from "../interfaces/Post";
 import { getAuthToken } from "../utils/auth";
 
-import AuthContext from "./auth-context";
+import { Typography } from "@mui/material";
+import { enqueueSnackbar } from "notistack";
+import { PostFilters } from "../interfaces/Filters";
 import PostContext, {
   initialPostState,
   PostState,
 } from "./manipulate-posts-context";
-import { PostFilters } from "../interfaces/Filters";
-import { enqueueSnackbar } from "notistack";
-import { Typography } from "@mui/material";
 
 interface ActionProps {
   type: string;

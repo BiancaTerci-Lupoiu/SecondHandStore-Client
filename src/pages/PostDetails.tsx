@@ -1,27 +1,17 @@
-import {
-  Avatar,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import React from "react";
-import { useNavigate, useParams } from "react-router";
-import { Post } from "../interfaces/Post";
-import { useState, useEffect, useContext } from "react";
-import PostContext from "../store/manipulate-posts-context";
-import { Box } from "@mui/system";
+import { Button, Card, Divider, Typography, useTheme } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { domain } from "../utils/apiCallsHandler";
-import UserInfo from "../components/userProfile/UserInfo";
-import { createCheckoutSession } from "../api/purchases";
-import { getAuthToken } from "../utils/auth";
-import { StripeCheckoutResponse } from "../interfaces/Payment";
+import { Box } from "@mui/system";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router";
 import { getPostById } from "../api/posts";
+import { createCheckoutSession } from "../api/purchases";
+import UserInfo from "../components/userProfile/UserInfo";
+import { StripeCheckoutResponse } from "../interfaces/Payment";
+import { Post } from "../interfaces/Post";
+import PostContext from "../store/manipulate-posts-context";
+import { domain } from "../utils/apiCallsHandler";
+import { getAuthToken } from "../utils/auth";
 
 const PostDetails: React.FC = () => {
   const params = useParams();

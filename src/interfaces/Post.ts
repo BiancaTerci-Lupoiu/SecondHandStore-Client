@@ -1,4 +1,4 @@
-import User, { Address, UserWithoutSensitiveInfo } from "./User";
+import { Address, UserWithoutSensitiveInfo } from "./User";
 
 export interface Category {
   type: string;

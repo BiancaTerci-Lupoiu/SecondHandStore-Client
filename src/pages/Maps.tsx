@@ -1,33 +1,21 @@
-import React, { useEffect, Component, useContext } from "react";
+import { Avatar, Box, Link, useTheme } from "@mui/material";
+import L, { LatLngTuple } from "leaflet";
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import "leaflet/dist/leaflet.css";
+import { useContext, useEffect } from "react";
 import {
-  FeatureGroup,
-  LayersControl,
-  LayerGroup,
-  Circle,
-  Rectangle,
   MapContainer,
   Marker,
   Popup,
   TileLayer,
   Tooltip,
-  useMap,
   ZoomControl,
 } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import L, { LatLngTuple } from "leaflet";
-import icon from "leaflet/dist/images/marker-icon.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
-import { Avatar, Box, Link } from "@mui/material";
+import Legend from "../components/maps/Legend";
+import useGeoLocation from "../hooks/useGeolocation";
 import PostContext from "../store/manipulate-posts-context";
 import { domain } from "../utils/apiCallsHandler";
-import { useTheme } from "@mui/material";
-import marker1 from "../assets/location1.svg";
-import marker2 from "../assets/location2.svg";
-import marker3 from "../assets/location3.svg";
-import userMarker from "../assets/userLocation.svg";
-import useGeoLocation from "../hooks/useGeolocation";
-import { Coordinates } from "../interfaces/Post";
-import Legend from "../components/maps/Legend";
 import {
   currentLocationIcon,
   customIcon1,

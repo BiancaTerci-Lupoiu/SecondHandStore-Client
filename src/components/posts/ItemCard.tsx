@@ -1,21 +1,19 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  CardActions,
-  Button,
-  Avatar,
-  CardHeader,
-  IconButton,
-  CardActionArea,
-  CardMedia,
-} from "@mui/material";
-import { useTheme } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import { useNavigate } from "react-router";
 import { Post } from "../../interfaces/Post";
 import { domain } from "../../utils/apiCallsHandler";
-import { useNavigate } from "react-router";
 const ItemCard: React.FC<{ post: Post }> = ({ post }) => {
   console.log(post._id);
   const navigate = useNavigate();

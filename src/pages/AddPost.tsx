@@ -1,22 +1,20 @@
-import AuthContext from "../store/auth-context";
-import { getAuthToken } from "../utils/auth";
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router";
-import { IconButton, Snackbar } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
+import { IconButton, Snackbar } from "@mui/material";
+import Paper from "@mui/material/Paper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import Button from "@mui/material/Button";
+import Stepper from "@mui/material/Stepper";
 import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
+import * as React from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { getUserDetails } from "../api/users";
+import AddPostFinishStep from "../components/addPostForm/AddPostFinishStep";
 import AddPostForm from "../components/addPostForm/AddPostForm";
 import AddressForm from "../components/addPostForm/AddressForm";
-import AddPostFinishStep from "../components/addPostForm/AddPostFinishStep";
 import AddPostContext from "../store/add-post-context";
-import { getUserDetails } from "../api/users";
+import AuthContext from "../store/auth-context";
+import { getAuthToken } from "../utils/auth";
 
 const steps = ["Item details", "Address info", "Finish"];
 

@@ -1,22 +1,20 @@
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Avatar,
-  Divider,
   IconButton,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
+  useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
-import { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Post } from "../../interfaces/Post";
 import PostContext from "../../store/manipulate-posts-context";
-import EditIcon from "@mui/icons-material/Edit";
 import { domain } from "../../utils/apiCallsHandler";
-import { useTheme } from "@mui/material";
-import EditPostModal from "../posts/EditPostModal";
-import DeleteIcon from "@mui/icons-material/Delete";
 import DeletePostModal from "../posts/DeletePostModal";
+import EditPostModal from "../posts/EditPostModal";
 
 const MyPostsList = () => {
   const theme = useTheme();

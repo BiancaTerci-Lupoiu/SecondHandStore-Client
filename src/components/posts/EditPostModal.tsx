@@ -1,15 +1,16 @@
-import * as React from "react";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import { Autocomplete, Grid, MenuItem, TextField } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
+import Fade from "@mui/material/Fade";
+import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import { useTheme } from "@mui/material/styles";
+import * as React from "react";
 import { useContext, useEffect, useState } from "react";
 import { EditPostModalProps } from "../../interfaces/ModalProps";
-import { Autocomplete, Grid, MenuItem, TextField } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import PostContext from "../../store/manipulate-posts-context";
 import {
   brands,
   categories,
@@ -20,14 +21,11 @@ import {
   sizes,
   styles,
 } from "../../utils/addPostForm";
-import { Condition, Genders } from "../../interfaces/Post";
-import PostContext from "../../store/manipulate-posts-context";
-import { modalStyle } from "../../utils/modals";
-import { enqueueSnackbar } from "notistack";
 import {
   convertStringToCondition,
   convertStringToGender,
 } from "../../utils/enumConvertions";
+import { modalStyle } from "../../utils/modals";
 
 const initalErrorsState = {
   titleErrorText: "",

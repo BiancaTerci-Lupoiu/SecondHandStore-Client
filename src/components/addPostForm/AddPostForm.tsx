@@ -1,17 +1,16 @@
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import {
+  Autocomplete,
   Box,
   Button,
   Container,
   Grid,
-  Snackbar,
+  MenuItem,
   TextField,
   Typography,
-  MenuItem,
-  Autocomplete,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useContext, useEffect, useState } from "react";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import {
   brands,
   categories,
@@ -23,9 +22,8 @@ import {
   styles,
 } from "../../utils/addPostForm";
 
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { Condition } from "../../interfaces/Post";
 import AddPostContext from "../../store/add-post-context";
-import { AddPostDetails, Condition, Genders } from "../../interfaces/Post";
 import {
   convertStringToCondition,
   convertStringToGender,

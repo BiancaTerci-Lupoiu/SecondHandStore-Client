@@ -1,14 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
-import RootLayout from "../pages/Root";
-import AboutPage from "../pages/AboutPage";
-import SignUp from "../pages/SignUp";
-import MainPage from "../pages/MainPage";
-import AddPost from "../pages/AddPost";
-import PostDetails from "../pages/PostDetails";
 import CheckoutSuccess from "../components/CheckoutSuccess";
-import UserProfile from "../pages/UserProfile";
-import Maps from "../pages/Maps";
+import AboutPage from "../pages/AboutPage";
+import AddPost from "../pages/AddPost";
 import Login from "../pages/Login";
+import MainPage from "../pages/MainPage";
+import Maps from "../pages/Maps";
+import PostDetails from "../pages/PostDetails";
+import RootLayout from "../pages/Root";
+import SignUp from "../pages/SignUp";
+import UserProfile from "../pages/UserProfile";
 export const router = createBrowserRouter([
   {
     path: "/",

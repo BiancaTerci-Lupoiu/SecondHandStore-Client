@@ -3,14 +3,13 @@ import {
   Button,
   Container,
   Grid,
-  InputLabel,
   MenuItem,
   TextField,
   useTheme,
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
-import { useEffect, useState, useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CityFetchedType } from "../../interfaces/City";
 import AddPostContext from "../../store/add-post-context";
 import SelectMapLocation from "../maps/SelectMapLocation";

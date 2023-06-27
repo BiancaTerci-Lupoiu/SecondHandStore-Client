@@ -1,29 +1,22 @@
-import * as React from "react";
+import { Grid, MenuItem, TextField } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
+import Fade from "@mui/material/Fade";
+import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
-import {
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import { EditUserModalProps } from "../../interfaces/ModalProps";
-import AddressForm from "../addPostForm/AddressForm";
-import { Grid, MenuItem, TextField } from "@mui/material";
-import { CityFetchedType } from "../../interfaces/City";
-import axios from "axios";
-import AuthContext from "../../store/auth-context";
-import { updateUser } from "../../api/users";
-import { UpdateUserBody } from "../../interfaces/User";
-import { getAuthToken } from "../../utils/auth";
 import { useTheme } from "@mui/material/styles";
-import { modalStyle } from "../../utils/modals";
+import axios from "axios";
 import { enqueueSnackbar } from "notistack";
+import * as React from "react";
+import { useContext, useEffect, useState } from "react";
+import { updateUser } from "../../api/users";
+import { CityFetchedType } from "../../interfaces/City";
+import { EditUserModalProps } from "../../interfaces/ModalProps";
+import { UpdateUserBody } from "../../interfaces/User";
+import AuthContext from "../../store/auth-context";
+import { getAuthToken } from "../../utils/auth";
+import { modalStyle } from "../../utils/modals";
 
 const EditProfileModal: React.FC<EditUserModalProps> = (props) => {
   const { open, setOpen, user } = props;

@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
-import { Button, IconButton, Paper, styled, Typography } from "@mui/material";
 import AddAPhoto from "@mui/icons-material/AddAPhoto";
+import { Button, IconButton, Paper, Typography, styled } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import PostContext from "../../store/manipulate-posts-context";
+import React, { useState } from "react";
 
 const PicturePreview = styled(Paper)({
   width: "100%",

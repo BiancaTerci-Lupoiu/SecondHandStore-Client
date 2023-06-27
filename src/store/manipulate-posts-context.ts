@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  AddPostBody,
-  AddPostDetails,
-  Post,
-  UpdatePostBody,
-} from "../interfaces/Post";
-import { Address } from "../interfaces/User";
 import { PostFilters } from "../interfaces/Filters";
+import { Post, UpdatePostBody } from "../interfaces/Post";
 
 export type PostState = {
   posts: Post[];

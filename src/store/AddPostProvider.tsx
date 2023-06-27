@@ -1,15 +1,15 @@
+import { Typography } from "@mui/material";
+import { enqueueSnackbar } from "notistack";
 import { useContext, useReducer } from "react";
-import { AddPostBody, AddPostDetails } from "../interfaces/Post";
-import { Address } from "../interfaces/User";
 import { addPost, uploadPostPicture } from "../api/posts";
+import { AddPostDetails } from "../interfaces/Post";
+import { Address } from "../interfaces/User";
 import { getAuthToken } from "../utils/auth";
 import AddPostContext, {
   AddPostState,
   initialAddPostState,
 } from "./add-post-context";
 import AuthContext from "./auth-context";
-import { enqueueSnackbar } from "notistack";
-import { Typography } from "@mui/material";
 
 interface ActionProps {
   type: string;

@@ -1,5 +1,6 @@
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import {
-  AppBar,
   Box,
   Button,
   Divider,
@@ -7,16 +8,13 @@ import {
   Popover,
   TextField,
   Toolbar,
-  Typography,
   useTheme,
 } from "@mui/material";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import { useContext, useEffect, useState } from "react";
 import "../../css/Utils.css";
-import { useState, useContext, useEffect } from "react";
-import FiltersPopover from "./FiltersPopover";
 import PostContext from "../../store/manipulate-posts-context";
 import FilterPictureModal from "./FilterPictureModal";
-import ImageSearchIcon from "@mui/icons-material/ImageSearch";
+import FiltersPopover from "./FiltersPopover";
 
 const FiltersBar = () => {
   const { getAllPosts, getAllPostsByKeywords } = useContext(PostContext);

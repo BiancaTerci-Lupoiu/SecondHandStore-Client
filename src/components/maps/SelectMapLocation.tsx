@@ -1,18 +1,16 @@
-import React, { useEffect, Component, useState, useContext } from "react";
+import { Box, useTheme } from "@mui/material";
+import L, { LatLngTuple } from "leaflet";
+import "leaflet/dist/leaflet.css";
+import { useContext, useState } from "react";
 import {
   MapContainer,
   Marker,
-  Popup,
   TileLayer,
-  useMapEvents,
   ZoomControl,
+  useMapEvents,
 } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import L, { LatLngTuple } from "leaflet";
-import { Box } from "@mui/material";
-import { useTheme } from "@mui/material";
-import AddPostContext from "../../store/add-post-context";
 import marker from "../../assets/location1.svg";
+import AddPostContext from "../../store/add-post-context";
 
 var customIcon = new L.Icon({
   iconUrl:

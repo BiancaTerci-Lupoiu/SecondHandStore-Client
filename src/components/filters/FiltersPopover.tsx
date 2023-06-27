@@ -1,7 +1,4 @@
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Button,
   Chip,
   Grid,
@@ -10,15 +7,19 @@ import {
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { useContext, useEffect, useState } from "react";
 import "../../css/Chips.css";
-import { useEffect, useState, useContext } from "react";
-import { colors, genders, sizes } from "../../utils/addPostForm";
-import { materials } from "../../utils/addPostForm";
-import { brands } from "../../utils/addPostForm";
-import CustomAccordion from "./CustomAccordion";
-import { categories } from "../../utils/addPostForm";
 import { PostFilters } from "../../interfaces/Filters";
 import PostContext from "../../store/manipulate-posts-context";
+import {
+  brands,
+  categories,
+  colors,
+  genders,
+  materials,
+  sizes,
+} from "../../utils/addPostForm";
+import CustomAccordion from "./CustomAccordion";
 
 const typeFilters = ["All", "Îmbrăcăminte", "Încălțăminte"];
 const genderFilters = ["All", ...genders];

@@ -1,30 +1,24 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
-import { Context, useContext, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { IconButton, Select, Snackbar } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import PetsIcon from "@mui/icons-material/Pets";
-import ShopIcon from "../components/ShopIcon";
-import { useEffect } from "react";
+import { IconButton, Snackbar } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
 import MenuItem from "@mui/material/MenuItem";
-import axios from "axios";
+import { useTheme } from "@mui/material/styles";
 import Switch from "@mui/material/Switch";
-import { signUp } from "../api/auth";
-import { CityFetchedType } from "../interfaces/City";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import axios from "axios";
 import { closeSnackbar, enqueueSnackbar } from "notistack";
+import * as React from "react";
+import { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { signUp } from "../api/auth";
+import ShopIcon from "../components/ShopIcon";
+import { CityFetchedType } from "../interfaces/City";
 
 function Copyright(props: any) {
   return (

@@ -1,6 +1,5 @@
-import { useTheme } from "@mui/material";
-import { Avatar } from "@mui/material";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
+import { Avatar, useTheme } from "@mui/material";
 
 const ShopIcon = () => {
   const theme = useTheme();

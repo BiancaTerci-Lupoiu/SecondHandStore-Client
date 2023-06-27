@@ -1,22 +1,22 @@
-import * as React from "react";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import * as React from "react";
 import { useContext, useEffect, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
-import { IconButton, Snackbar } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { IconButton, Snackbar } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-import AuthContext from "../store/auth-context";
 import { useTheme } from "@mui/material";
-import ShopIcon from "../components/ShopIcon";
-import { getAuthToken } from "../utils/auth";
 import logo from "../assets/logo.png";
+import ShopIcon from "../components/ShopIcon";
+import AuthContext from "../store/auth-context";
+import { getAuthToken } from "../utils/auth";
 
 function Copyright(props: any) {
   return (

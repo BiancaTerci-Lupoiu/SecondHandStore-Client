@@ -7,7 +7,6 @@ import {
   Typography,
 } from "@mui/material";
 import { BasicModalProps } from "../interfaces/ModalProps";
-import { modalStyle } from "../utils/modals";
 
 const LoadingComponent: React.FC<BasicModalProps> = ({ open, setOpen }) => {
   const handleClose = () => {

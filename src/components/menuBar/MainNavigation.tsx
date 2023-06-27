@@ -1,26 +1,14 @@
-import {
-  Container,
-  Toolbar,
-  IconButton,
-  Typography,
-  Box,
-  Menu,
-  MenuItem,
-  Tooltip,
-  Avatar,
-  Button,
-  Theme,
-} from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { Avatar, Box, IconButton, Toolbar, Typography } from "@mui/material";
+import { useContext, useEffect } from "react";
 
+import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material";
-import { getAuthToken } from "../../utils/auth";
-import AuthContext from "../../store/auth-context";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import { domain } from "../../utils/apiCallsHandler";
-import * as React from "react";
 import { styled } from "@mui/material/styles";
+import * as React from "react";
+import AuthContext from "../../store/auth-context";
+import { domain } from "../../utils/apiCallsHandler";
+import { getAuthToken } from "../../utils/auth";
 
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { drawerWidth } from "../../utils/constants";
@@ -65,7 +53,7 @@ const MainNavigation: React.FC<{
         await getDetailsForUser?.();
       })();
     }
-  }, [loginToken]);
+  }, [loginToken, getDetailsForUser, loggedUser]);
 
   return (
     <Box sx={{ display: "flex", height: "10vh" }}>

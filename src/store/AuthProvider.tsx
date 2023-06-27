@@ -1,11 +1,9 @@
-import { useState } from "react";
-import { LoginResponse } from "../interfaces/Auth";
+import React, { useState } from "react";
 import { login } from "../api/auth";
-import AuthContext, { AuthState, initialAuthState } from "./auth-context";
-import React from "react";
-import { getAuthToken } from "../utils/auth";
 import { getUserDetails } from "../api/users";
+import { getAuthToken } from "../utils/auth";
 import { tokenValidity } from "../utils/constants";
+import AuthContext, { AuthState, initialAuthState } from "./auth-context";
 
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

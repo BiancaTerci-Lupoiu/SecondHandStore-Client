@@ -1,15 +1,14 @@
 import {
-  Typography,
-  Button,
   Box,
+  Button,
   Container,
-  IconButton,
   Grid,
+  IconButton,
+  Typography,
   useTheme,
 } from "@mui/material";
+import { useContext, useState } from "react";
 import AddPostContext from "../../store/add-post-context";
-import { useContext, useEffect, useState } from "react";
-import { enqueueSnackbar } from "notistack";
 const AddPostFinishStep: React.FC<{ handleBack: () => void }> = ({
   handleBack,
 }) => {

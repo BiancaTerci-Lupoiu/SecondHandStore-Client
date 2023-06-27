@@ -1,3 +1,5 @@
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
 import {
   Box,
   Card,
@@ -6,10 +8,8 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { animated, config, useSpring } from "@react-spring/web";
 import logo from "../assets/logo.png";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import { useSpring, animated, config } from "@react-spring/web";
 
 const AnimatedCard = animated(Card);
 
