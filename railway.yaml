@@ -1,0 +1,2 @@
+build:
+  memory: 1024 # Increase the memory limit as needed
