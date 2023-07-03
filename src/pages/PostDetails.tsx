@@ -1,9 +1,16 @@
-import { Button, Card, Divider, Typography, useTheme } from "@mui/material";
+import {
+  Button,
+  Card,
+  Divider,
+  IconButton,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { Box } from "@mui/system";
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { getPostById } from "../api/posts";
 import { createCheckoutSession } from "../api/purchases";
 import UserInfo from "../components/userProfile/UserInfo";
@@ -12,11 +19,14 @@ import { Post } from "../interfaces/Post";
 import PostContext from "../store/manipulate-posts-context";
 import { domain } from "../utils/apiCallsHandler";
 import { getAuthToken } from "../utils/auth";
+import { closeSnackbar, enqueueSnackbar } from "notistack";
+import CloseIcon from "@mui/icons-material/Close";
 
 const PostDetails: React.FC = () => {
   const params = useParams();
   const [post, setPost] = useState<Post>();
   const { posts } = useContext(PostContext);
+  const navigate = useNavigate();
 
   const theme = useTheme();
 
@@ -31,6 +41,22 @@ const PostDetails: React.FC = () => {
   const handleCheckout = () => {
     const token = getAuthToken();
     console.log(token);
+    if (!token) {
+      enqueueSnackbar("You need to login first!", {
+        action: (snackbarId) => (
+          <IconButton
+            sx={{ color: "white" }}
+            onClick={() => {
+              closeSnackbar(snackbarId);
+              navigate("/login");
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        ),
+      });
+      return;
+    }
     createCheckoutSession(post!, getAuthToken() || "")
       .then((res: StripeCheckoutResponse) => {
         console.log(res);

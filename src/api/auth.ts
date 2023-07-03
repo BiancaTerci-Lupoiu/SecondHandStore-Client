@@ -9,7 +9,6 @@ const login: (
   password: string
 ) => Promise<LoginResponse> = async (email: string, password: string) => {
   return withLogs(axios.post(`${url}/login`, { email, password }), "login");
-  //   return (await axios.get(`http://localhost:8081/health`)).data;
 };
 
 const signUp: (signUpInfo: SignUpInfo) => Promise<string> = async (
