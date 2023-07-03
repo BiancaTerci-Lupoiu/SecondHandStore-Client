@@ -21,7 +21,6 @@ const ItemCard: React.FC<{ post: Post }> = ({ post }) => {
     navigate(`/posts/${post._id}`);
   };
   const theme = useTheme();
-
   return (
     <>
       <Card
@@ -50,7 +49,6 @@ const ItemCard: React.FC<{ post: Post }> = ({ post }) => {
         <CardMedia
           sx={{
             height: 210,
-
             objectFit: "contain",
           }}
           image={`${domain}/images/posts/${post.picture}`}

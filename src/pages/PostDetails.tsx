@@ -21,12 +21,15 @@ import { domain } from "../utils/apiCallsHandler";
 import { getAuthToken } from "../utils/auth";
 import { closeSnackbar, enqueueSnackbar } from "notistack";
 import CloseIcon from "@mui/icons-material/Close";
+import AuthContext from "../store/auth-context";
 
 const PostDetails: React.FC = () => {
   const params = useParams();
   const [post, setPost] = useState<Post>();
   const { posts } = useContext(PostContext);
   const navigate = useNavigate();
+
+  const { loggedUser } = useContext(AuthContext);
 
   const theme = useTheme();
 
@@ -257,26 +260,30 @@ const PostDetails: React.FC = () => {
                 margin: " 0 auto",
               }}
             >
-              <Typography
-                sx={{
-                  marginLeft: "60px",
-                  fontWeight: "bold",
-                  display: "inline",
-                  fontStyle: "italic",
-                }}
-                variant="h5"
-              >{`${post.price} Lei`}</Typography>
-              <Button
-                sx={{
-                  marginLeft: "10px",
-                  marginBottom: "10px",
-                  fontSize: "15px",
-                }}
-                variant="contained"
-                onClick={handleCheckout}
-              >
-                Cumpără
-              </Button>
+              <Box sx={{ marginBottom: "10px" }}>
+                <Typography
+                  sx={{
+                    marginLeft: "60px",
+                    fontWeight: "bold",
+                    display: "inline",
+
+                    fontStyle: "italic",
+                  }}
+                  variant="h5"
+                >{`${post.price} Lei`}</Typography>
+                {loggedUser?._id != post.user._id && (
+                  <Button
+                    sx={{
+                      marginLeft: "10px",
+                      fontSize: "15px",
+                    }}
+                    variant="contained"
+                    onClick={handleCheckout}
+                  >
+                    Cumpără
+                  </Button>
+                )}
+              </Box>
             </div>
           </div>
         </Card>

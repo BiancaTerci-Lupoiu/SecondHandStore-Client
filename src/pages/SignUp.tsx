@@ -30,7 +30,7 @@ function Copyright(props: any) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        PetRescue
+        SecondLife
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -431,6 +431,7 @@ const SignUp: React.FC = () => {
             />
           </Box>
         </Box>
+        <Copyright sx={{ mt: 5 }} />
       </Container>
       <Container component="div" maxWidth="xs">
         <CssBaseline />

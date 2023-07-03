@@ -2,6 +2,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import {
   Avatar,
+  Box,
   IconButton,
   List,
   ListItem,
@@ -57,7 +58,7 @@ const MyPostsList = () => {
               boxShadow: " 0 3px 10px rgb(0 0 0 / 0.2)",
             }}
             secondaryAction={
-              <>
+              <Box>
                 <IconButton
                   edge="end"
                   aria-label="edit"
@@ -81,7 +82,7 @@ const MyPostsList = () => {
                 >
                   <DeleteIcon color="secondary" />
                 </IconButton>
-              </>
+              </Box>
             }
           >
             <ListItemAvatar>
@@ -98,13 +99,14 @@ const MyPostsList = () => {
             </ListItemAvatar>
             <ListItemText
               primary={post.title}
+              sx={{ paddingRight: "10px" }}
               secondary={
                 <React.Fragment>
                   <span>
                     {post.description.length < 47
                       ? post.description
                       : post.description.substring(0, 47) + "..."}
-                  </span>{" "}
+                  </span>
                 </React.Fragment>
               }
             />

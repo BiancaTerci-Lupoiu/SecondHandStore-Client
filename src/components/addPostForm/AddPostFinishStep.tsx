@@ -54,7 +54,7 @@ const AddPostFinishStep: React.FC<{ handleBack: () => void }> = ({
           width: "fit-content",
         }}
       >
-        Click here to return to the main page
+        Apasă aici ca să revii la pagina principală
       </IconButton>
     </Grid>
   );
@@ -62,7 +62,7 @@ const AddPostFinishStep: React.FC<{ handleBack: () => void }> = ({
   if (saving) {
     return (
       <Box>
-        <Typography>Post is saving</Typography>
+        <Typography>Postarea se salvează...</Typography>
       </Box>
     );
   }
@@ -95,7 +95,7 @@ const AddPostFinishStep: React.FC<{ handleBack: () => void }> = ({
                 textAlign: "center",
               }}
             >
-              Your post has been succesfully uploaded!
+              Postarea a fost salvată cu succes!
             </Typography>
           </Grid>
           {returnToMainPage}
@@ -117,7 +117,7 @@ const AddPostFinishStep: React.FC<{ handleBack: () => void }> = ({
                   justifyContent: "center",
                 }}
               >
-                Sorry, something went wrong
+                SNe pare rău, ceva nu a mers bine!
               </Typography>
             </Grid>
 

@@ -32,6 +32,7 @@ const AddressForm: React.FC<{
   const [numberErrorText, setNumberErrorText] = useState("");
   const [streetErrorText, setStreetErrorText] = useState("");
   const [zipcodeErrorText, setZipcodeErrorText] = useState("");
+  const [ibanErrorText, setIbanErrorText] = useState("");
 
   const [cities, setCities] = useState<CityFetchedType[]>([]);
   const [localities, setLocalities] = useState<string[]>([]);
@@ -112,6 +113,12 @@ const AddressForm: React.FC<{
       isValid = false;
     } else {
       setZipcodeErrorText("");
+    }
+    if (!iban) {
+      setIbanErrorText("Iban required!");
+      isValid = false;
+    } else {
+      setIbanErrorText("");
     }
 
     return isValid;
@@ -265,8 +272,8 @@ const AddressForm: React.FC<{
               autoComplete="iban"
               value={iban}
               onChange={(event) => updateIban?.(event.target.value)}
-              //   error={!!streetErrorText}
-              //   helperText={streetErrorText}
+              error={!!ibanErrorText}
+              helperText={ibanErrorText}
             />
           </Grid>
         </Grid>
