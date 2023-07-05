@@ -9,13 +9,19 @@ import {
 import { PostFilters } from "../interfaces/Filters";
 
 const url = `${domain}/api/posts`;
-
+[46.770439, 23.591423];
 const addPost: (
   addPostBody: AddPostBody,
   token: string
 ) => Promise<Post> = async (addPostBody, token) => {
   console.log("token on add ", token);
   console.log(addPostBody);
+  if (addPostBody.postDetails && !addPostBody.postDetails?.coordinates) {
+    addPostBody.postDetails.coordinates = {
+      latitude: 46.770439,
+      longitude: 23.591423,
+    };
+  }
   return withLogs(axios.post(url, addPostBody, authConfig(token)), "addPost");
 };
 

@@ -43,7 +43,10 @@ export default function Maps() {
     getAllPosts?.();
   }, []);
 
+  console.log(posts);
+
   const groupedPosts = groupPostsByCoordinates(posts);
+  console.log(groupedPosts);
 
   const center: LatLngTuple = [51.505, -0.09];
 

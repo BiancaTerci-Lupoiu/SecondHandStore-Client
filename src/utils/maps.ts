@@ -12,7 +12,7 @@ interface GroupedPosts {
 
 export const groupPostsByCoordinates = (posts: Post[]): GroupedPosts[] => {
   const groupedPosts: GroupedPosts[] = [];
-
+  console.log("postaraaii ", posts);
   // Iterate through the posts array
   posts.forEach((post) => {
     // Find the index of the groupedPosts array that matches the post's coordinates
@@ -25,8 +25,10 @@ export const groupPostsByCoordinates = (posts: Post[]): GroupedPosts[] => {
     // If a matching group is found, add the post to its posts array
     // Otherwise, create a new group and add the post
     if (index !== -1) {
+      console.log("IFFF");
       groupedPosts[index].posts.push(post);
     } else {
+      console.log("ELSEEEE");
       groupedPosts.push({
         coordinates: post.coordinates,
         posts: [post],

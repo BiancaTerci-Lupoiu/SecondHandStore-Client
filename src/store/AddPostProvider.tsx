@@ -22,7 +22,10 @@ const addPostReducer: (
 ) => AddPostState = (state, { type, payload }) => {
   switch (type) {
     case UPDATE_POST_DETAILS:
-      console.log("updating post details");
+      console.log(
+        "updating post details with ",
+        payload.postDetails.coordinates
+      );
       return { ...state, postDetails: payload.postDetails };
     case UPDATE_ADDRESS:
       return { ...state, address: payload.address };

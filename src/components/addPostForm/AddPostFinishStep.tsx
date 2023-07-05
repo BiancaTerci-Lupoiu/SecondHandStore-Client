@@ -61,8 +61,15 @@ const AddPostFinishStep: React.FC<{ handleBack: () => void }> = ({
 
   if (saving) {
     return (
-      <Box>
-        <Typography>Postarea se salvează...</Typography>
+      <Box
+        sx={{
+          height: "90vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Typography variant="h3">Postarea se salvează...</Typography>
       </Box>
     );
   }

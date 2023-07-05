@@ -30,20 +30,13 @@ const CustomMarker = () => {
   const [position, setPosition] = useState(initialPosition);
   const { updatePostDetails, postDetails } = useContext(AddPostContext);
 
-  if (!postDetails?.coordinates) {
-    updatePostDetails?.({
-      ...postDetails!,
-      coordinates: { latitude: position[0], longitude: position[1] },
-    });
-  }
-
   useMapEvents({
     click: (e) => {
       const { lat, lng } = e.latlng;
       setPosition([lat, lng]);
       updatePostDetails?.({
         ...postDetails!,
-        coordinates: { latitude: position[0], longitude: position[1] },
+        coordinates: { latitude: lat, longitude: lng },
       });
     },
   });
